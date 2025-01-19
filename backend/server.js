@@ -1,5 +1,6 @@
 const express = require('express');
 const scrapeReviews = require('./scrapeReviews');
+const { getDataFromOpenAI } = require('./testApiKey'); // Importing the function
 require('dotenv').config();
 
 const app = express();
@@ -24,11 +25,10 @@ app.get('/api/reviews', async (req, res) => {
     }
 });
 
-// New API Endpoint for hello review_analyzer
-app.get('/api', (req, res) => {
-    res.json({ message: "hello review_analyzer" });
-});
+// New API Endpoint for OpenAI
+app.post('/api/openai', getDataFromOpenAI); // Setting up the new endpoint
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
